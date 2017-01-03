@@ -49,6 +49,14 @@ function erlang_compiler#ToggleShowErrors()
 endfunction
 
 function erlang_compiler#AutoRun(buffer)
+    if exists('g:erlang_compiler_autorun_disabled') &&
+          \ g:erlang_compiler_autorun_disabled
+        return
+    endif
+    call erlang_compiler#Run(a:buffer)
+endfunction
+
+function erlang_compiler#Run(buffer)
     let info = erlang_compiler#GetLocalInfo()
     try
         compiler erlang
